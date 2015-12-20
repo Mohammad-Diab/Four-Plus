@@ -1,0 +1,171 @@
+﻿<Window x:Class="Four_Plus.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Four_Plus"
+        mc:Ignorable="d"
+        Title="Four Plus" Height="410" Width="550" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" MaxWidth="550" MaxHeight="410">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="AliceBlue" Offset="0"/>
+                <GradientStop Color="White" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid x:Name="grid_mother" HorizontalAlignment="Left" Margin="-550,0,0,-400" Height="780" VerticalAlignment="Bottom">
+
+            <Grid Margin="550,0,0,0" HorizontalAlignment="Left" Width="540" Height="380" VerticalAlignment="Bottom">
+                <CheckBox x:Name="checkBox" Content="Time Limit" HorizontalAlignment="Left" Margin="100,130,0,0" VerticalAlignment="Top" Background="Transparent" BorderBrush="RoyalBlue" Foreground="RoyalBlue" FontSize="16"/>
+                <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="130,155,0,0" TextWrapping="Wrap" Text="300" VerticalAlignment="Top" Width="75" Foreground="Black" BorderBrush="RoyalBlue" Background="Transparent" FontSize="14.667" IsEnabled="False"/>
+                <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="210,156,0,0" TextWrapping="Wrap" Text="second" VerticalAlignment="Top" FontSize="14.667"/>
+                <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="100,200,0,0" TextWrapping="Wrap" Text="Computer difficulty" VerticalAlignment="Top" FontSize="16" Foreground="RoyalBlue"/>
+                <RadioButton x:Name="radioButton" Content="Stupid" HorizontalAlignment="Left" Margin="130,230,0,0" VerticalAlignment="Top" FontSize="14.667" Background="Transparent" BorderBrush="RoyalBlue" Foreground="Black"/>
+                <RadioButton x:Name="radioButton_Copy" Content="Easy" HorizontalAlignment="Left" Margin="130,254,0,0" VerticalAlignment="Top" FontSize="14.667" Background="Transparent" BorderBrush="RoyalBlue" Foreground="Black"/>
+                <RadioButton x:Name="radioButton_Copy1" Content="Medium" HorizontalAlignment="Left" Margin="130,278,0,0" VerticalAlignment="Top" FontSize="14.667" Background="Transparent" BorderBrush="RoyalBlue" Foreground="Black"/>
+                <RadioButton x:Name="radioButton_Copy2" Content="Hard" HorizontalAlignment="Left" Margin="130,302,0,0" VerticalAlignment="Top" FontSize="14.667" Background="Transparent" BorderBrush="RoyalBlue" Foreground="Black" IsChecked="True"/>
+                <RadioButton x:Name="radioButton_Copy3" Content="Expert" HorizontalAlignment="Left" Margin="130,326,0,0" VerticalAlignment="Top" FontSize="14.667" Background="Transparent" BorderBrush="RoyalBlue" Foreground="Black"/>
+                <Button x:Name="button" Content="Back" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Height="24" Background="#00DDDDDD" BorderBrush="RoyalBlue" Foreground="RoyalBlue" FontSize="13.333" Click="OptionsBack_Click"/>
+            </Grid>
+
+            <Grid HorizontalAlignment="Left" Width="540" Height="380" Margin="0,0,0,0" VerticalAlignment="Bottom">
+                <Button x:Name="s_p" Content="Single Player" Margin="180,0,0,196" VerticalAlignment="Bottom" Height="34" Background="#00DDDDDD" FontSize="16" BorderBrush="RoyalBlue" Foreground="#FF0017FF" HorizontalAlignment="Left" Width="180" Click="SP_Click"/>
+                <Button x:Name="m_p" Content="Multiplayer" Margin="180,0,0,157" VerticalAlignment="Bottom" Height="34" Background="#00DDDDDD" FontSize="16" BorderBrush="RoyalBlue" Foreground="#FF0017FF" HorizontalAlignment="Left" Width="180" Click="Multiplayer_Click"/>
+                <Button x:Name="options" Content="Options" Margin="180,0,0,118" VerticalAlignment="Bottom" Height="34" Background="#00DDDDDD" FontSize="16" BorderBrush="RoyalBlue" Foreground="#FF0017FF" HorizontalAlignment="Left" Width="180" Click="Options_Click"/>
+                <Button x:Name="about" Content="About" Margin="180,0,0,79" VerticalAlignment="Bottom" Height="34" Background="#00DDDDDD" FontSize="16" BorderBrush="RoyalBlue" Foreground="#FF0017FF" HorizontalAlignment="Left" Width="180" Click="About_Click"/>
+                <Button x:Name="exit" Content="Exit" Margin="180,0,0,40" VerticalAlignment="Bottom" Height="34" Background="#00DDDDDD" FontSize="16" BorderBrush="RoyalBlue" Foreground="#FF0017FF" HorizontalAlignment="Left" Width="180" Click="exit_Click"/>
+                <Button x:Name="m_p_local" Content="Local" Margin="550,0,0,157" VerticalAlignment="Bottom" Height="34" Background="#00DDDDDD" FontSize="16" BorderBrush="RoyalBlue" Foreground="#FF0017FF" HorizontalAlignment="Left" Width="180" Visibility="Visible" Click="MultiPlayerLocal_Click"/>
+                <Button x:Name="m_p_lan" Content="LAN" Margin="550,0,0,118" VerticalAlignment="Bottom" Height="34" Background="#00DDDDDD" FontSize="16" BorderBrush="RoyalBlue" Foreground="#FF0017FF" HorizontalAlignment="Left" Width="180" Visibility="Hidden"/>
+                <Button x:Name="m_p_intenet" Content="Intenet" Margin="550,0,0,79" VerticalAlignment="Bottom" Height="34" Background="#00DDDDDD" FontSize="16" BorderBrush="RoyalBlue" Foreground="#FF0017FF" HorizontalAlignment="Left" Width="180" Visibility="Hidden"/>
+                <Button x:Name="m_p_back" Content="Back" Margin="550,0,0,40" VerticalAlignment="Bottom" Height="34" Background="#00DDDDDD" FontSize="16" BorderBrush="RoyalBlue" Foreground="#FF0017FF" HorizontalAlignment="Left" Width="180" Visibility="Hidden" Click="m_p_back_Click"/>
+            </Grid>
+
+            <Grid HorizontalAlignment="Left" Height="380" VerticalAlignment="Top" Width="540">
+                <TextBlock Margin="12,11,0,0" TextWrapping="Wrap" Text="Four Plus" VerticalAlignment="Top" Foreground="Black" FontSize="22" TextAlignment="Center" Visibility="Visible" HorizontalAlignment="Left" Width="100"/>
+                <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Four Plus" VerticalAlignment="Top" Foreground="Green" FontSize="22" TextAlignment="Center" Visibility="Visible" HorizontalAlignment="Left" Width="100"/>
+                <ListBox x:Name="player_list" HorizontalAlignment="Left" Margin="10,70,0,112" Width="180" Background="{x:Null}" BorderBrush="Blue" FontSize="16" FontFamily="Segoe Print" Foreground="Blue"/>
+                <Button Content="1" HorizontalAlignment="Left" Margin="10,0,0,47" VerticalAlignment="Bottom" Width="32" Height="32" Background="#00DDDDDD" BorderBrush="Green" Foreground="Green" FontSize="16" Click="NumberSingButton_Click"/>
+                <Button Content="2" HorizontalAlignment="Left" Margin="47,0,0,47" VerticalAlignment="Bottom" Width="32" Height="32" Background="#00DDDDDD" BorderBrush="Green" Foreground="Green" FontSize="16" Click="NumberSingButton_Click"/>
+                <Button Content="3" HorizontalAlignment="Left" Margin="84,0,0,47" VerticalAlignment="Bottom" Width="32" Height="32" Background="#00DDDDDD" BorderBrush="Green" Foreground="Green" FontSize="16" Click="NumberSingButton_Click"/>
+                <Button Content="4" HorizontalAlignment="Left" Margin="121,0,0,47" VerticalAlignment="Bottom" Width="32" Height="32" Background="#00DDDDDD" BorderBrush="Green" Foreground="Green" FontSize="16" Click="NumberSingButton_Click"/>
+                <Button Content="5" HorizontalAlignment="Left" Margin="158,0,0,47" VerticalAlignment="Bottom" Width="32" Height="32" Background="#00DDDDDD" BorderBrush="Green" Foreground="Green" FontSize="16" Click="NumberSingButton_Click"/>
+                <Button Content="6" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="32" Height="32" Background="#00DDDDDD" BorderBrush="Green" Foreground="Green" FontSize="16" Click="NumberSingButton_Click"/>
+                <Button Content="7" HorizontalAlignment="Left" Margin="47,0,0,10" VerticalAlignment="Bottom" Width="32" Height="32" Background="#00DDDDDD" BorderBrush="Green" Foreground="Green" FontSize="16" Click="NumberSingButton_Click"/>
+                <Button Content="8" HorizontalAlignment="Left" Margin="84,0,0,10" VerticalAlignment="Bottom" Width="32" Height="32" Background="#00DDDDDD" BorderBrush="Green" Foreground="Green" FontSize="16" Click="NumberSingButton_Click"/>
+                <Button Content="9" HorizontalAlignment="Left" Margin="121,0,0,10" VerticalAlignment="Bottom" Width="32" Height="32" Background="#00DDDDDD" BorderBrush="Green" Foreground="Green" FontSize="16" Click="NumberSingButton_Click"/>
+                <Button Content="+" HorizontalAlignment="Right" Margin="0,0,131,47" VerticalAlignment="Bottom" Width="68" Height="32" Background="#00DDDDDD" BorderBrush="#FF800063" Foreground="#FF800063" FontSize="16" Click="NumberSingButton_Click"/>
+                <Button Content=">" HorizontalAlignment="Right" Margin="0,0,20,47" VerticalAlignment="Bottom" Width="69" Height="32" Background="#00DDDDDD" BorderBrush="#FF800063" Foreground="#FF800063" FontSize="16" Click="NumberSingButton_Click"/>
+                <TextBlock x:Name="number_placeholder" HorizontalAlignment="Left" Margin="14,276,0,0" TextWrapping="Wrap" Text="Your number here" VerticalAlignment="Top" FontSize="12" FontStyle="Italic" Foreground="Gray"/>
+                <TextBox x:Name="player_number_text" HorizontalAlignment="Left" Height="23" Margin="10,273,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" BorderBrush="Blue" Background="{x:Null}" SelectionBrush="#FFF5A85C" FontSize="16" PreviewKeyUp="player_number_text_PreviewKeyUp" TextChanged="player_number_text_TextChanged" MaxLines="1" MaxLength="4"/>
+                <ListBox x:Name="cpu_list" HorizontalAlignment="Right" Margin="0,70,20,112" Width="180" Background="{x:Null}" BorderBrush="Black" FontSize="16" FontFamily="Segoe Print"/>
+                <TextBlock HorizontalAlignment="Left" Margin="10,49,0,0" TextWrapping="Wrap" Text="You" VerticalAlignment="Top" Foreground="Blue" FontSize="14"/>
+                <TextBlock HorizontalAlignment="Right" Margin="0,49,138,0" TextWrapping="Wrap" Text="Computer" VerticalAlignment="Top" Foreground="Black" FontSize="14"/>
+                <Button x:Name="button_Copy3" Content="Resume" HorizontalAlignment="Right" Margin="0,0,10,68" VerticalAlignment="Bottom" Width="100" Height="24" Background="#00DDDDDD" BorderBrush="RoyalBlue" Foreground="RoyalBlue" FontSize="13.333" Click="OptionsBack_Click" Visibility="Collapsed"/>
+                <TextBlock Margin="190,140,210,0" TextWrapping="Wrap" Text="VS" VerticalAlignment="Top" FontSize="64" FontStyle="Italic" FontWeight="Bold" TextAlignment="Center" Foreground="Black"/>
+                <TextBlock Margin="197,142,203,0" TextWrapping="Wrap" Text="VS" VerticalAlignment="Top" FontSize="64" FontStyle="Italic" FontWeight="Bold" TextAlignment="Center" Foreground="#FF7A447A"/>
+                <TextBlock x:Name="result_placeholder" HorizontalAlignment="Left" Margin="345,276,0,0" TextWrapping="Wrap" Text="Your hint here" VerticalAlignment="Top" FontSize="12" FontStyle="Italic" Foreground="Gray"/>
+                <TextBox x:Name="player_result_text" HorizontalAlignment="Left" Height="23" Margin="340,273,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" BorderBrush="Blue" Background="{x:Null}" SelectionBrush="#FFF5A85C" FontSize="16" PreviewKeyUp="player_result_text_PreviewKeyUp" TextChanged="player_result_text_TextChanged" MaxLines="1" MaxLength="4"/>
+                <TextBlock x:Name="player_win_count" HorizontalAlignment="Left" Margin="152,49,0,0" TextWrapping="Wrap" Text="0 wins" VerticalAlignment="Top" Foreground="Blue" FontSize="14"/>
+                <TextBlock x:Name="cpu_win_count" HorizontalAlignment="Right" Margin="0,49,20,0" TextWrapping="Wrap" Text="0 wins" VerticalAlignment="Top" Foreground="Black" FontSize="14"/>
+                <TextBlock x:Name="battle_number" HorizontalAlignment="Left" Margin="197,10,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" FontSize="28" Width="149" TextAlignment="Center" Foreground="Brown"/>
+                <Button x:Name="button2" Content="?" HorizontalAlignment="Right" Margin="0,10,43,0" VerticalAlignment="Top" Width="28" Click="button2_Click" Height="28" Background="{x:Null}" BorderBrush="RoyalBlue" FontSize="14.667" Foreground="RoyalBlue"/>
+                <Button Content="🆗" HorizontalAlignment="Left" Margin="159,0,0,84" VerticalAlignment="Bottom" Width="32" Height="23" Background="#00000000" BorderBrush="Black" Foreground="Black" FontSize="16" Click="EnterNumberButton_Click" />
+                <Button Content="🆗" HorizontalAlignment="Left" Margin="488,0,0,84" VerticalAlignment="Bottom" Width="32" Height="23" Background="#00000000" BorderBrush="Black" Foreground="Black" FontSize="16" Click="EnterResultButton_Click" />
+                <Button x:Name="number_backspace" Content="backspace" HorizontalAlignment="Left" Margin="121,0,0,84" VerticalAlignment="Bottom" Width="32" Height="23" Background="#00DDDDDD" BorderBrush="Black" Foreground="Black" FontSize="6" Click="BackspaceButton_Click"/>
+                <Button Content="backspace" HorizontalAlignment="Left" Margin="451,0,0,84" VerticalAlignment="Bottom" Width="32" Height="23" Background="#00DDDDDD" BorderBrush="Black" Foreground="Black" FontSize="6" Click="BackspaceButton_Click"/>
+                <Button x:Name="button_Copy2" Content="||" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="28" Height="28" Background="#00DDDDDD" BorderBrush="RoyalBlue" Foreground="Black" FontSize="12" FontWeight="Bold" Click="PauseGame_Click"/>
+                <Grid x:Name="info_grid" Visibility="Hidden" Background="#4C3A3A3A">
+                    <Rectangle x:Name="rectangle" Fill="#FF4859FF" Height="152" VerticalAlignment="Top" Margin="0,114,0,0" Opacity="0.8"/>
+                    <StackPanel x:Name="stack_info" Orientation="Vertical" Margin="10,168,10,0" Height="44" VerticalAlignment="Top">
+                        <TextBlock x:Name="info_text1" TextWrapping="Wrap" Text="Hello human!" VerticalAlignment="Top" FontSize="30" Foreground="White" Margin="0,0,0,0" TextAlignment="Center"/>
+                        <TextBlock x:Name="info_text2" TextWrapping="Wrap" Text="Let's get started" VerticalAlignment="Top" FontSize="30" Foreground="Yellow" Margin="0,0,0,0" TextAlignment="Center"/>
+                        <TextBlock x:Name="info_round_text" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Margin="0,0,0,0" TextAlignment="Center"><Run Text="Round " FontSize="30"/><Run Foreground="Red" FontSize="32" x:Name="info_round_number" Text="1"/></TextBlock>
+                    </StackPanel>
+                    <Button x:Name="ok_button" Content="OK" HorizontalAlignment="Right" Margin="0,0,25,125" VerticalAlignment="Bottom" Width="75" Background="#00000000" Foreground="Yellow" BorderBrush="Yellow" FontSize="14" Click="OK_Button_Click" BorderThickness="2,1"/>
+                    <Button x:Name="cancel_button" Content="NO" HorizontalAlignment="Right" Margin="0,0,110,125" VerticalAlignment="Bottom" Width="75" Background="#00000000" Foreground="Yellow" BorderBrush="Yellow" FontSize="14" Click="OK_Button_Click" BorderThickness="2,1"/>
+                </Grid>
+
+                <Grid x:Name="pause_grid" Visibility="Hidden" Background="#4C3A3A3A">
+                    <Rectangle Fill="Black" Margin="0,114,0,0" Opacity="0.8" Height="152" VerticalAlignment="Top"/>
+                    <StackPanel x:Name="pause_stack" Margin="215,123,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="110">
+                        <Button x:Name="resume_game" Margin="0,5" Content="Resume" VerticalAlignment="Bottom" Height="24" Background="#00DDDDDD" BorderBrush="White" Foreground="White" FontSize="14" BorderThickness="3,1" Click="ResumeGame_Click"/>
+                        <Button x:Name="new_game" Margin="0,5" Content="New game" VerticalAlignment="Bottom" Height="24" Background="#00DDDDDD" BorderBrush="White" Foreground="White" FontSize="14" BorderThickness="3,1" Click="ResumeGame_Click"/>
+                        <Button Margin="0,5" Content="Surrender" VerticalAlignment="Bottom" Height="24" Background="#00DDDDDD" BorderBrush="White" Foreground="White" FontSize="14" BorderThickness="3,1" Click="Surrender_Click"/>
+                        <Button Margin="0,5" Content="Back to menu"  VerticalAlignment="Bottom" Height="24" Background="#00DDDDDD" BorderBrush="White" Foreground="White" FontSize="14" BorderThickness="3,1" Click="BackToMenu_Click"/>
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
+
+            <Grid HorizontalAlignment="Left" Height="380" Margin="550,0,0,0" VerticalAlignment="Top" Width="540">
+                <TextBlock Margin="12,11,0,0" TextWrapping="Wrap" Text="Four Plus" VerticalAlignment="Top" Foreground="Black" FontSize="22" TextAlignment="Center" Visibility="Visible" HorizontalAlignment="Left" Width="100"/>
+                <TextBlock Margin="10,10,0,0" TextWrapping="Wrap" Text="Four Plus" VerticalAlignment="Top" Foreground="Green" FontSize="22" TextAlignment="Center" Visibility="Visible" HorizontalAlignment="Left" Width="100"/>
+                <StackPanel Margin="180,0,0,10" Orientation="Horizontal" Height="70" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="180" >
+                    <Grid x:Name="mpl_numbers_grid" HorizontalAlignment="Left" Width="180">
+                        <Button Content="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Height="32" Background="#00DDDDDD" BorderBrush="Green" Foreground="Green" FontSize="16"/>
+                        <Button Content="2" HorizontalAlignment="Left" Margin="37,0,0,0" VerticalAlignment="Top" Width="32" Height="32" Background="#00DDDDDD" BorderBrush="Green" Foreground="Green" FontSize="16"/>
+                        <Button Content="3" HorizontalAlignment="Left" Margin="74,0,0,0" VerticalAlignment="Top" Width="32" Height="32" Background="#00DDDDDD" BorderBrush="Green" Foreground="Green" FontSize="16"/>
+                        <Button Content="4" HorizontalAlignment="Left" Margin="111,0,0,0" VerticalAlignment="Top" Width="32" Height="32" Background="#00DDDDDD" BorderBrush="Green" Foreground="Green" FontSize="16"/>
+                        <Button Content="5" HorizontalAlignment="Left" Margin="148,0,-1,0" VerticalAlignment="Top" Width="32" Height="32" Background="#00DDDDDD" BorderBrush="Green" Foreground="Green" FontSize="16"/>
+                        <Button Content="6" HorizontalAlignment="Left" Margin="0,37,0,0" VerticalAlignment="Top" Width="32" Height="32" Background="#00DDDDDD" BorderBrush="Green" Foreground="Green" FontSize="16"/>
+                        <Button Content="7" HorizontalAlignment="Left" Margin="37,37,0,0" VerticalAlignment="Top" Width="32" Height="32" Background="#00DDDDDD" BorderBrush="Green" Foreground="Green" FontSize="16"/>
+                        <Button Content="8" HorizontalAlignment="Left" Margin="74,37,0,0" VerticalAlignment="Top" Width="32" Height="32" Background="#00DDDDDD" BorderBrush="Green" Foreground="Green" FontSize="16"/>
+                        <Button Content="9" HorizontalAlignment="Left" Margin="111,37,0,0" VerticalAlignment="Top" Width="32" Height="32" Background="#00DDDDDD" BorderBrush="Green" Foreground="Green" FontSize="16"/>
+                    </Grid>
+                    <Grid HorizontalAlignment="Left" Width="180">
+                        <Button Content="+" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Height="32" Background="#00DDDDDD" BorderBrush="#FF800063" Foreground="#FF800063" FontSize="16"/>
+                        <Button Content="&gt;" HorizontalAlignment="Right" VerticalAlignment="Top" Width="69" Height="32" Background="#00DDDDDD" BorderBrush="#FF800063" Foreground="#FF800063" FontSize="16"/>
+                    </Grid>
+                </StackPanel>
+                <StackPanel x:Name="mpl_number_placeholder_stack" Margin="184,276,0,0" Height="17" VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal" Width="100">
+                    <TextBlock x:Name="mpl_number_placeholder" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Your number here" VerticalAlignment="Top" FontSize="12" FontStyle="Italic" Foreground="Gray" Width="120"/>
+                    <TextBlock x:Name="mpl_result_placeholder" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Your hint here" VerticalAlignment="Top" FontSize="12" FontStyle="Italic" Foreground="Gray" Width="120"/>
+                </StackPanel>
+                <TextBox x:Name="mpl_player_number_text" HorizontalAlignment="Left" Height="23" Margin="180,273,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" BorderBrush="Blue" Background="{x:Null}" SelectionBrush="#FFF5A85C" FontSize="16" PreviewKeyUp="MPL_PlayerNumberText_PreviewKeyUp" TextChanged="MPL_PlayerNumberText_TextChanged"/>
+                <Button Content="🆗" HorizontalAlignment="Left" Margin="328,0,0,84" VerticalAlignment="Bottom" Width="32" Height="23" Background="#00000000" BorderBrush="Black" Foreground="Black" FontSize="16" Click="MPL_EnterNumberButton_Click" />
+                <Button x:Name="number_backspace_Copy" Content="backspace" HorizontalAlignment="Left" Margin="291,0,0,84" VerticalAlignment="Bottom" Width="32" Height="23" Background="#00DDDDDD" BorderBrush="Black" Foreground="Black" FontSize="6" Click="BackspaceButton_Click"/>
+                <Grid x:Name="mpl_player1_grid" HorizontalAlignment="Left" Width="160" Height="220" VerticalAlignment="Top" Margin="10,46,0,0">
+                    <ListBox x:Name="mpl_player1_list" Margin="0,24,0,0" Background="{x:Null}" BorderBrush="Blue" FontSize="16" FontFamily="Segoe Print" Foreground="Blue"/>
+                    <TextBox x:Name="mpl_player1_name" HorizontalAlignment="Left" Text="Player 1" VerticalAlignment="Top" Foreground="Blue" FontSize="14" Background="{x:Null}" BorderBrush="Blue" MinWidth="10" MaxWidth="120" MaxLines="1" MaxLength="15"/>
+                    <TextBlock x:Name="player1_win_count_mp" HorizontalAlignment="Left" Margin="121,1,0,0" TextWrapping="Wrap" Text="0 wins" VerticalAlignment="Top" Foreground="Blue" FontSize="14"/>
+                </Grid>
+                <Grid x:Name="mpl_player2_grid" Margin="0,46,10,0" HorizontalAlignment="Right" Width="160" Height="220" VerticalAlignment="Top">
+                    <ListBox x:Name="mpl_player2_list" Margin="0,24,0,0" Background="{x:Null}" BorderBrush="Red" FontSize="16" FontFamily="Segoe Print" Foreground="Red"/>
+                    <TextBox x:Name="mpl_player2_name" HorizontalAlignment="Left" Text="Player 2" VerticalAlignment="Top" Foreground="Red" FontSize="14" Background="{x:Null}" BorderBrush="Red" MinWidth="10" MaxWidth="120" MaxLines="1" MaxLength="15" SelectionBrush="Orange"/>
+                    <TextBlock x:Name="player2_win_count_mp" HorizontalAlignment="Right" TextWrapping="Wrap" Text="0 wins" VerticalAlignment="Top" Foreground="Red" FontSize="14" Margin="0,1,0,0"/>
+                </Grid>
+                <TextBlock x:Name="battle_number_mp" HorizontalAlignment="Left" Margin="197,10,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" FontSize="28" Width="149" TextAlignment="Center" Foreground="Brown"/>
+                <TextBlock HorizontalAlignment="Left" Margin="10,0,0,30" TextWrapping="Wrap" Text="300.00" VerticalAlignment="Bottom" FontSize="30" Foreground="Blue" Width="160" TextAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Right" Margin="0,0,10,30" TextWrapping="Wrap" Text="300.00" VerticalAlignment="Bottom" FontSize="30" Foreground="Red" Width="160" TextAlignment="Center"/>
+                <Button x:Name="button_Copy" Content="||" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="28" Height="28" Background="#00DDDDDD" BorderBrush="RoyalBlue" Foreground="Black" FontSize="12" FontWeight="Bold"/>
+                <Grid x:Name="info_grid_mpl" Visibility="Hidden" Background="#4C3A3A3A">
+                    <Rectangle x:Name="rectangle_mpl" Fill="#FF4859FF" Height="152" VerticalAlignment="Top" Margin="0,114,0,0" Opacity="0.8"/>
+                    <StackPanel x:Name="stack_info_mpl" Orientation="Vertical" Margin="10,130,10,0" Height="44" VerticalAlignment="Top">
+                        <TextBlock x:Name="info_text1_mpl" TextWrapping="Wrap" Text="Hello humans!" VerticalAlignment="Top" FontSize="30" Foreground="White" Margin="0,0,0,0" TextAlignment="Center"/>
+                        <TextBlock x:Name="info_text2_mpl" TextWrapping="Wrap" Text="Let's get started" VerticalAlignment="Top" FontSize="30" Foreground="Yellow" Margin="0,0,0,0" TextAlignment="Center"/>
+                        <TextBlock x:Name="info_round_text_mpl" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" Margin="0,0,0,0" TextAlignment="Center"><Run Text="Round " FontSize="30"/><Run Foreground="Red" FontSize="32" x:Name="info_round_number_mpl" Text="1"/></TextBlock>
+                    </StackPanel>
+                    <Button x:Name="ok_button_mpl" Content="OK" HorizontalAlignment="Right" Margin="0,0,25,125" VerticalAlignment="Bottom" Width="75" Background="#00000000" Foreground="Yellow" BorderBrush="Yellow" FontSize="14" Click="OK_Button_MPL_Click" BorderThickness="2,1"/>
+                    <Button x:Name="cancel_button_mpl" Content="NO" HorizontalAlignment="Right" Margin="0,0,110,125" VerticalAlignment="Bottom" Width="75" Background="#00000000" Foreground="Yellow" BorderBrush="Yellow" FontSize="14" Click="OK_Button_Click" BorderThickness="2,1"/>
+                    <PasswordBox x:Name="player_number_mpl" Margin="220,180,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="White" FontSize="24" MaxLength="4" HorizontalAlignment="Left" Width="100"/>
+                </Grid>
+
+                <Grid x:Name="pause_grid_mpl" Visibility="Hidden" Background="#4C3A3A3A">
+                    <Rectangle Fill="Black" Margin="0,114,0,0" Opacity="0.8" Height="152" VerticalAlignment="Top"/>
+                    <StackPanel x:Name="pause_stack_mpl" Margin="215,123,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="110">
+                        <Button x:Name="resume_game_mpl" Margin="0,5" Content="Resume" VerticalAlignment="Bottom" Height="24" Background="#00DDDDDD" BorderBrush="White" Foreground="White" FontSize="14" BorderThickness="3,1" Click="ResumeGame_Click"/>
+                        <Button x:Name="new_game_mpl" Margin="0,5" Content="New game" VerticalAlignment="Bottom" Height="24" Background="#00DDDDDD" BorderBrush="White" Foreground="White" FontSize="14" BorderThickness="3,1" Click="ResumeGame_Click"/>
+                        <Button Margin="0,5" Content="Surrender" VerticalAlignment="Bottom" Height="24" Background="#00DDDDDD" BorderBrush="White" Foreground="White" FontSize="14" BorderThickness="3,1" Click="Surrender_Click"/>
+                        <Button Margin="0,5" Content="Back to menu"  VerticalAlignment="Bottom" Height="24" Background="#00DDDDDD" BorderBrush="White" Foreground="White" FontSize="14" BorderThickness="3,1" Click="BackToMenu_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="30,10,0,0" TextWrapping="Wrap" Text="4" VerticalAlignment="Top" FontSize="72" Visibility="Hidden"/>
+        <TextBlock HorizontalAlignment="Right" Margin="0,10,30,0" TextWrapping="Wrap" Text="+" VerticalAlignment="Top" FontSize="72" Visibility="Hidden"/>
+        <TextBlock Margin="74,29,84,0" TextWrapping="Wrap" Text="Four Plus" VerticalAlignment="Top" Foreground="Black" FontSize="48" TextAlignment="Center" Visibility="Hidden"/>
+        <TextBlock Margin="74,31,84,0" TextWrapping="Wrap" Text="Four Plus" VerticalAlignment="Top" Foreground="Green" FontSize="48" TextAlignment="Center" Visibility="Hidden"/>
+        <Button x:Name="button1" Content="Bobo" HorizontalAlignment="Right" Margin="0,11,55,0" VerticalAlignment="Top" Width="75" Click="button1_Click_1"/>
+    </Grid>
+</Window>
