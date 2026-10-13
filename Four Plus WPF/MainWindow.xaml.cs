@@ -156,7 +156,7 @@ namespace Four_Plus
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Hello Human", "Four Plus", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("تصميم وبرمجة: محمد دياب\n2015", "Four Plus", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void Options_Click(object sender, RoutedEventArgs e)
@@ -397,7 +397,7 @@ namespace Four_Plus
                 }
                 else if (numbers_result[1] == string.Empty)
                     for (int i = 0; i < numbers[1].ToString().Length; i++)
-                        banned_numbers.Add(i);
+                        banned_numbers.Add(int.Parse((numbers[1].ToString())[i].ToString()));
             }
 
             List<int> possible_number = new List<int>();
@@ -424,7 +424,7 @@ namespace Four_Plus
                     bool acc = true;
                     for (int j = 0; j < numbers.Count; j++)
                     {
-                        if (CheckNumber(number, numbers[j].ToString()) != numbers_result[j])
+                        if (new string(CheckNumber(number, numbers[j].ToString()).OrderBy(c => c).ToArray()) != new string(numbers_result[j].OrderBy(c => c).ToArray()))
                         {
                             acc = false;
                             break;
@@ -471,117 +471,87 @@ namespace Four_Plus
         {
             if (!game_over)
             {
-                if (is_number_or_result)
+                if (!isValid(player_number_text.Text))
                 {
-                    if (!isValid(player_number_text.Text))
-                    {
-                        //MessageBox.Show("حط رقم مثل العالم والناس احسن ما اجي...");
-                        ShowMessage("Please enter a valid four digits number.", 1, Brushes.Orange);
-                        player_number_text.Clear();
-                        player_number_text.Focus();
-                    }
-                    else
-                    {
-                        player_list.Items.Add(player_number_text.Text);
-                        string result = CheckNumber(player_number_text.Text, computer_number);
-                        player_list.Items.Add(result == string.Empty ? "NO THING" : result);
+                    ShowMessage("Please enter a valid four digits number.", 1, Brushes.Orange);
+                    player_number_text.Clear();
+                    player_number_text.Focus();
+                    return;
+                }
+                if (awaiting_secret)
+                {
+                    player_number = player_number_text.Text;
+                    player_number_text.Clear();
+                    awaiting_secret = false;
+                    number_placeholder.Text = "Your guess here";
+                    player_number_text.Focus();
+                    if (!human_turn)
+                        CpuGuess();
+                    return;
+                }
+                player_list.Items.Add(player_number_text.Text);
+                string result = CheckNumber(player_number_text.Text, computer_number);
+                player_list.Items.Add(result == string.Empty ? "NO THING" : result);
 
-                        player_list.SelectedIndex = player_list.Items.Count - 1;
-                        player_list.ScrollIntoView(player_list.SelectedItem);
+                player_list.SelectedIndex = player_list.Items.Count - 1;
+                player_list.ScrollIntoView(player_list.SelectedItem);
 
-                        player_number_text.Clear();
-                        if (player_list.Items[player_list.Items.Count - 1].Equals("++++"))
-                        {
-                            //MessageBox.Show("انا كنت متساهل معك لهيك فزت, تجرب مرة ثانية؟", "خلصت اللعبة", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                            ShowMessage("Congratulations you won, Play again?", 2, Brushes.Green);
-                            player_win++;
-                            game_over = true;
-                            player_win_count.Text = player_win + (player_win == 1 ? " win" : " wins");
-                        }
-                        else
-                        {
-                            string cpu_guess = GetExpecting(numbers, numbers_result, banned_numbers, OK_Number);
-                            if (cpu_guess != null)
-                            {
-                                cpu_list.Items.Add(cpu_guess);
-
-                                cpu_list.SelectedIndex = cpu_list.Items.Count - 1;
-                                cpu_list.ScrollIntoView(cpu_list.SelectedItem);
-
-                                player_result_text.Focus();
-                                is_number_or_result = false;
-                            }
-                            else
-                            {
-                                ShowMessage("Some of your hints is invalid so the game is over, Do you want to play again?", 2, Brushes.OrangeRed);
-                                //MessageBox.Show("بتلعب بدون كذب ولا بحذفلك ملفاتك");
-                                game_over = true;
-                            }
-                        }
-                    }
+                player_number_text.Clear();
+                if (player_list.Items[player_list.Items.Count - 1].Equals("++++"))
+                {
+                    ShowMessage("Congratulations you won, Play again?", 2, Brushes.Green);
+                    player_win++;
+                    game_over = true;
+                    player_win_count.Text = player_win + (player_win == 1 ? " win" : " wins");
                 }
                 else
-                {
-                    ShowMessage("Give me a hint for my guess first.", 1, Brushes.Orange);
-                    //MessageBox.Show("يا غبي عطيني جواب رقمي بالاول");
-                    player_result_text.Focus();
-                }
+                    CpuGuess();
             }
         }
 
-        private void EnterResult()
+        private void CpuGuess()
         {
-            if (!game_over)
+            string cpu_guess = GetExpecting(numbers, numbers_result, banned_numbers, OK_Number);
+            if (cpu_guess != null)
             {
-                if (!is_number_or_result)
-                {
-                    if (!CheckUserResult(player_result_text.Text))
-                    {
-                        //MessageBox.Show("حاج تخبيص");
-                        ShowMessage("Invalid hint, please try again.", 1, Brushes.Orange);
-                        player_result_text.Clear();
-                    }
-                    else
-                    {
-                        cpu_list.Items.Add(player_result_text.Text == string.Empty ? "NO THING" : player_result_text.Text);
+                cpu_list.Items.Add(cpu_guess);
+                string result = CheckNumber(cpu_guess, player_number);
+                cpu_list.Items.Add(result == string.Empty ? "NO THING" : result);
 
-                        cpu_list.SelectedIndex = cpu_list.Items.Count - 1;
-                        cpu_list.ScrollIntoView(cpu_list.SelectedItem);
+                cpu_list.SelectedIndex = cpu_list.Items.Count - 1;
+                cpu_list.ScrollIntoView(cpu_list.SelectedItem);
 
-                        numbers_result.Add(player_result_text.Text);
-                        player_result_text.Clear();
-                        player_number_text.Focus();
-                        is_number_or_result = true;
-                        if (numbers_result[numbers_result.Count - 1].Equals("++++"))
-                        {
-                            ShowMessage("Unfortunately you lose, play again?", 2, Brushes.IndianRed);
-                            cpu_win++;
-                            cpu_win_count.Text = cpu_win + (cpu_win == 1 ? " win" : " wins");
-                            game_over = true;
-                        }
-                    }
-                }
-                else
+                numbers_result.Add(result);
+                if (result.Equals("++++"))
                 {
-                    ShowMessage("It's your turn, give me a number.", 1, Brushes.BlueViolet);
-                    //MessageBox.Show("يا غشيم صار دورك هات شي رقم.");
-                    player_number_text.Focus();
+                    ShowMessage("Unfortunately you lose, play again?", 2, Brushes.IndianRed);
+                    cpu_win++;
+                    cpu_win_count.Text = cpu_win + (cpu_win == 1 ? " win" : " wins");
+                    game_over = true;
                 }
+            }
+            else
+            {
+                ShowMessage("I give up, you win! Play again?", 2, Brushes.Green);
+                player_win++;
+                player_win_count.Text = player_win + (player_win == 1 ? " win" : " wins");
+                game_over = true;
             }
         }
 
         #endregion
 
         string computer_number;
+        string player_number;
         bool human_turn;
+        bool awaiting_secret;
         int current_battle_number = 0, cpu_win = 0, player_win = 0;
         List<string> numbers_result;
         List<int> numbers, banned_numbers, OK_Number;
-        bool is_number_or_result, game_over = false;
+        bool game_over = false;
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            //info_grid.Visibility = Visibility.Hidden;
             current_battle_number++;
             info_round_number.Text = battle_number.Text = current_battle_number.ToString();
             if (current_battle_number > 1)
@@ -600,14 +570,18 @@ namespace Four_Plus
             player_list.Items.Clear();
             cpu_list.Items.Clear();
             game_over = false;
-            if (!human_turn)
-            {
-                string cpu_guess = GetExpecting(numbers, numbers_result, banned_numbers, OK_Number);
-                cpu_list.Items.Add(cpu_guess);
-                is_number_or_result = false;
-            }
-            else
-                is_number_or_result = true;
+            player_number = null;
+            awaiting_secret = true;
+            number_placeholder.Text = "Enter your secret number";
+            player_number_text.Clear();
+            player_number_text.Focus();
+        }
+
+        private void NewGame_Click(object sender, RoutedEventArgs e)
+        {
+            current_battle_number = cpu_win = player_win = 0;
+            player_win_count.Text = cpu_win_count.Text = "0 wins";
+            button1_Click(null, null);
         }
 
         private void player_number_text_TextChanged(object sender, TextChangedEventArgs e)
@@ -632,11 +606,14 @@ namespace Four_Plus
             if (!game_over)
             {
                 Button b = (Button)sender;
-                TextBox t = b.Content.ToString()[0] < '1' || b.Content.ToString()[0] > '9' ? player_result_text : player_number_text;
+                TextBox t = b.Parent == mpl_numbers_grid ? mpl_player_number_text : player_number_text;
                 string text = t.Text;
-                int index = t.CaretIndex + 1;
-                t.Text = t.Text.Substring(0, t.CaretIndex) + b.Content + t.Text.Substring(t.CaretIndex);
-                t.CaretIndex = index;
+                if (text.Length < 4 && !text.Contains(b.Content.ToString()))
+                {
+                    int index = t.CaretIndex + 1;
+                    t.Text = t.Text.Substring(0, t.CaretIndex) + b.Content + t.Text.Substring(t.CaretIndex);
+                    t.CaretIndex = index;
+                }
                 t.Focus();
             }
         }
@@ -644,19 +621,6 @@ namespace Four_Plus
         private void EnterNumberButton_Click(object sender, RoutedEventArgs e)
         {
             EnterNumber();
-        }
-
-        private void EnterResultButton_Click(object sender, RoutedEventArgs e)
-        {
-            EnterResult();
-        }
-
-        private void player_result_text_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (player_result_text.Text == string.Empty)
-                result_placeholder.Visibility = Visibility.Visible;
-            else
-                result_placeholder.Visibility = Visibility.Hidden;
         }
 
         private void OK_Button_Click(object sender, RoutedEventArgs e)
@@ -680,7 +644,7 @@ namespace Four_Plus
 
         private void BackspaceButton_Click(object sender, RoutedEventArgs e)
         {
-            TextBox textbox = ((Button)sender).Name == "number_backspace" ? player_number_text : player_result_text;
+            TextBox textbox = ((Button)sender).Name == "number_backspace_Copy" ? mpl_player_number_text : player_number_text;
             if (textbox.CaretIndex > 0)
             {
                 int index = textbox.CaretIndex;
@@ -734,7 +698,7 @@ namespace Four_Plus
                 current_battle_number = cpu_win = player_win = 0;
                 OK_Number = banned_numbers = numbers = null;
                 player_win_count.Text = cpu_win_count.Text = "0 wins";
-                player_result_text.Text = player_number_text.Text = "";
+                player_number_text.Text = "";
                 battle_number.Text = info_round_number.Text = "1";
                 info_text1.BeginAnimation(HeightProperty, new DoubleAnimation(0, 44, new Duration(new TimeSpan(1))));
                 info_text2.BeginAnimation(HeightProperty, new DoubleAnimation(0, 44, new Duration(new TimeSpan(1))));
@@ -754,14 +718,6 @@ namespace Four_Plus
             }
         }
 
-
-        private void player_result_text_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                EnterResult();
-            }
-        }
 
         private void ShowMessage(string message, int buttons_number, Brush backgrount_color)
         {
@@ -816,12 +772,45 @@ namespace Four_Plus
             }
         }
 
+        private void ShowMessageMPL(string message, Brush backgrount_color)
+        {
+            rectangle_mpl.Fill = backgrount_color;
+            rectangle_mpl.Stroke = backgrount_color;
+            player_number_mpl.Visibility = ok_button_mpl.Visibility = cancel_button_mpl.Visibility = Visibility.Hidden;
+            stack_info_mpl.Margin = new Thickness(10, 168, 10, 0);
+            if (message.Length > 40)
+                info_text1_mpl.FontSize = 20;
+            else
+                info_text1_mpl.FontSize = 30;
+            info_text1_mpl.Text = message;
+            info_text1_mpl.BeginAnimation(HeightProperty, new DoubleAnimation(0, stack_info_mpl.ActualHeight, new Duration(new TimeSpan(10))));
+            stack_info_mpl.Height = info_text1_mpl.ActualHeight;
+            msg_ok_button_mpl.Visibility = Visibility.Visible;
+            info_grid_mpl.Opacity = 0;
+            info_grid_mpl.Visibility = Visibility.Visible;
+            info_grid_mpl.BeginAnimation(OpacityProperty, new DoubleAnimation(1, new Duration(new TimeSpan(2000000))));
+        }
+
+        private void MessageOK_MPL_Click(object sender, RoutedEventArgs e)
+        {
+            msg_ok_button_mpl.Visibility = Visibility.Hidden;
+            DoubleAnimation da = new DoubleAnimation(0, new Duration(new TimeSpan(2000000)));
+            da.Completed += (object s1, EventArgs e1) =>
+            {
+                info_grid_mpl.Visibility = Visibility.Hidden;
+                info_grid_mpl.Opacity = 1;
+                if (game_over)
+                    NextRoundMPL();
+            };
+            info_grid_mpl.BeginAnimation(OpacityProperty, da);
+        }
+
 
         #region MultiPlayer
 
         #region Local
         bool mpl_is_first_player_turn;
-        int mpl_rount_number = 0;
+        int mpl_rount_number = 0, mpl_player1_win = 0, mpl_player2_win = 0;
 
         int mpl_RountNumber
         {
@@ -846,28 +835,28 @@ namespace Four_Plus
                         mpl_player1_grid.BeginAnimation(MarginProperty, new ThicknessAnimation(new Thickness(188, 46, 0, 0), new TimeSpan(2000000)));
                         mpl_number_placeholder.BeginAnimation(WidthProperty, new DoubleAnimation(120, new Duration(new TimeSpan(1000000))));
                         mpl_numbers_grid.BeginAnimation(WidthProperty, new DoubleAnimation(180, new Duration(new TimeSpan(1000000))));
-                        MessageBox.Show(mpl_player1_name.Text + ": enter guess");
+                        ShowMessageMPL(mpl_player1_name.Text + ": enter guess", Brushes.Blue);
                         break;
                     case MPL_Turn.SecondHint:
                         mpl_player2_grid.BeginAnimation(MarginProperty, new ThicknessAnimation(new Thickness(0, 46, 10, 0), new TimeSpan(2000000)));
                         mpl_player1_grid.BeginAnimation(MarginProperty, new ThicknessAnimation(new Thickness(188, 46, 0, 0), new TimeSpan(2000000)));
                         mpl_number_placeholder.BeginAnimation(WidthProperty, new DoubleAnimation(0, new Duration(new TimeSpan(1000000))));
                         mpl_numbers_grid.BeginAnimation(WidthProperty, new DoubleAnimation(0, new Duration(new TimeSpan(1000000))));
-                        MessageBox.Show(mpl_player2_name.Text + ": enter hint");
+                        ShowMessageMPL(mpl_player2_name.Text + ": enter hint", Brushes.Red);
                         break;
                     case MPL_Turn.SecondNumber:
                         mpl_player1_grid.BeginAnimation(MarginProperty, new ThicknessAnimation(new Thickness(10, 46, 0, 0), new TimeSpan(2000000)));
                         mpl_player2_grid.BeginAnimation(MarginProperty, new ThicknessAnimation(new Thickness(0, 46, 192, 0), new TimeSpan(2000000)));
                         mpl_number_placeholder.BeginAnimation(WidthProperty, new DoubleAnimation(120, new Duration(new TimeSpan(1000000))));
                         mpl_numbers_grid.BeginAnimation(WidthProperty, new DoubleAnimation(180, new Duration(new TimeSpan(1000000))));
-                        MessageBox.Show(mpl_player2_name.Text + ": enter guess");
+                        ShowMessageMPL(mpl_player2_name.Text + ": enter guess", Brushes.Red);
                         break;
                     case MPL_Turn.FirstHint:
                         mpl_player1_grid.BeginAnimation(MarginProperty, new ThicknessAnimation(new Thickness(10, 46, 0, 0), new TimeSpan(2000000)));
                         mpl_player2_grid.BeginAnimation(MarginProperty, new ThicknessAnimation(new Thickness(0, 46, 192, 0), new TimeSpan(2000000)));
                         mpl_number_placeholder.BeginAnimation(WidthProperty, new DoubleAnimation(0, new Duration(new TimeSpan(1000000))));
                         mpl_numbers_grid.BeginAnimation(WidthProperty, new DoubleAnimation(0, new Duration(new TimeSpan(1000000))));
-                        MessageBox.Show(mpl_player1_name.Text + ": enter hint");
+                        ShowMessageMPL(mpl_player1_name.Text + ": enter hint", Brushes.Blue);
                         break;
                 }
                 mpl_turn = value;
@@ -878,7 +867,10 @@ namespace Four_Plus
 
         private void MPL_PlayerNumberText_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-
+            if (e.Key == Key.Enter)
+            {
+                MPL_EnterNumberButton_Click(null, null);
+            }
         }
 
         private void MPL_PlayerNumberText_TextChanged(object sender, TextChangedEventArgs e)
@@ -891,11 +883,28 @@ namespace Four_Plus
 
         private void MultiPlayerLocal_Click(object sender, RoutedEventArgs e)
         {
-            MultiPlayerLocalAnimation();
+            NewGameMPL_Click(sender, e);
+        }
+
+        private void BackToMenuMPL_Click(object sender, RoutedEventArgs e)
+        {
+            game_over = true;
+            info_grid_mpl.Visibility = Visibility.Hidden;
+            ThicknessAnimation m = new ThicknessAnimation(new Thickness(0, -400, -550, 0), new Duration(new TimeSpan(1500000)));
+            m.Completed += (object s1, EventArgs e1) => { AnimateMenuBack(); };
+            grid_mother.BeginAnimation(MarginProperty, m);
         }
 
         private void MultiPlayerLocalAnimation()
         {
+            game_over = false;
+            mpl_player1_number = mpl_player2_number = null;
+            battle_number_mp.Text = info_round_number_mpl.Text = (mpl_rount_number + 1).ToString();
+            mpl_turn = MPL_Turn.Null;
+            mpl_player1_list.Items.Clear();
+            mpl_player2_list.Items.Clear();
+            mpl_player1_grid.BeginAnimation(MarginProperty, null);
+            mpl_player2_grid.BeginAnimation(MarginProperty, null);
             ThicknessAnimation ta11 = new ThicknessAnimation(new Thickness(-550, 0, 0, -400), new Duration(new TimeSpan(2000000)));
             ta11.Completed += (object sender6, EventArgs e6) =>
             {
@@ -969,8 +978,21 @@ namespace Four_Plus
             grid_mother.BeginAnimation(MarginProperty, ta11);
         }
 
-        private void button1_Click_1(object sender, RoutedEventArgs e)
+        private void NewGameMPL_Click(object sender, RoutedEventArgs e)
         {
+            mpl_rount_number = mpl_player1_win = mpl_player2_win = 0;
+            player1_win_count_mp.Text = player2_win_count_mp.Text = "0 wins";
+            NextRoundMPL();
+        }
+
+        private void NextRoundMPL()
+        {
+            msg_ok_button_mpl.Visibility = Visibility.Hidden;
+            mpl_player_number_text.Clear();
+            player_number_mpl.Password = "";
+            info_text1_mpl.FontSize = 30;
+            info_text1_mpl.BeginAnimation(HeightProperty, null);
+            info_text2_mpl.BeginAnimation(HeightProperty, null);
             MultiPlayerLocalAnimation();
         }
 
@@ -995,9 +1017,6 @@ namespace Four_Plus
                 {
                     mpl_player2_number = player_number_mpl.Password;
                     player_number_mpl.Password = "";
-                    var an1 = new DoubleAnimation(0, new Duration(new TimeSpan(2000000)));
-                    an1.Completed += (object sender1, EventArgs e1) => { info_grid_mpl.Visibility = Visibility.Hidden; };
-                    info_grid_mpl.BeginAnimation(OpacityProperty, an1);
                     mpl_RountNumber++;
                     mpl_Turn = mpl_is_first_player_turn ? MPL_Turn.FirstNumber : MPL_Turn.SecondNumber;
                 }
@@ -1012,54 +1031,42 @@ namespace Four_Plus
                 {
                     case MPL_Turn.FirstNumber:
                         if (!isValid(mpl_player_number_text.Text))
-                            MessageBox.Show(mpl_player1_name.Text + ": wrong input");
+                            ShowMessageMPL(mpl_player1_name.Text + ": wrong input", Brushes.OrangeRed);
                         else
                         {
                             mpl_player1_list.Items.Add(MakeListView(mpl_player_number_text.Text, mpl_player1_list.Items.Count));
-                            if (CheckNumber(mpl_player2_number, mpl_player_number_text.Text).Equals("++++"))
+                            string result = CheckNumber(mpl_player2_number, mpl_player_number_text.Text);
+                            mpl_player1_list.Items.Add(MakeListView(result, mpl_player1_list.Items.Count));
+                            mpl_player_number_text.Clear();
+                            if (result.Equals("++++"))
                             {
-                                MessageBox.Show(mpl_player1_name.Text + ": won");
+                                ShowMessageMPL(mpl_player1_name.Text + ": won", Brushes.Green);
+                                mpl_player1_win++;
+                                player1_win_count_mp.Text = mpl_player1_win + (mpl_player1_win == 1 ? " win" : " wins");
                                 game_over = true;
                             }
-                            mpl_Turn = MPL_Turn.SecondHint;
-                        }
-                        break;
-                    case MPL_Turn.FirstHint:
-                        if (!CheckUserResult(mpl_player_number_text.Text))
-                            MessageBox.Show(mpl_player1_name.Text + ": wrong hint");
-                        else
-                        {
-                            string result = CheckNumber(mpl_player1_number, (mpl_player2_list.Items[mpl_player2_list.Items.Count - 1] as ListBoxItem).Content.ToString());
-                            mpl_player2_list.Items.Add(MakeListView(result, mpl_player2_list.Items.Count));
-                            if (!result.Equals(mpl_player_number_text.Text))
-                                MessageBox.Show(mpl_player1_name.Text + ": wrong hint, correct hint has been added.");
-                            mpl_Turn = MPL_Turn.FirstNumber;
+                            else
+                                mpl_Turn = MPL_Turn.SecondNumber;
                         }
                         break;
                     case MPL_Turn.SecondNumber:
                         if (!isValid(mpl_player_number_text.Text))
-                            MessageBox.Show(mpl_player2_name.Text + ": wrong number");
+                            ShowMessageMPL(mpl_player2_name.Text + ": wrong input", Brushes.OrangeRed);
                         else
                         {
                             mpl_player2_list.Items.Add(MakeListView(mpl_player_number_text.Text, mpl_player2_list.Items.Count));
-                            if (CheckNumber(mpl_player1_number, mpl_player_number_text.Text).Equals("++++"))
+                            string result = CheckNumber(mpl_player1_number, mpl_player_number_text.Text);
+                            mpl_player2_list.Items.Add(MakeListView(result, mpl_player2_list.Items.Count));
+                            mpl_player_number_text.Clear();
+                            if (result.Equals("++++"))
                             {
-                                MessageBox.Show(mpl_player2_name.Text + ": won");
+                                ShowMessageMPL(mpl_player2_name.Text + ": won", Brushes.Green);
+                                mpl_player2_win++;
+                                player2_win_count_mp.Text = mpl_player2_win + (mpl_player2_win == 1 ? " win" : " wins");
                                 game_over = true;
                             }
-                            mpl_Turn = MPL_Turn.FirstHint;
-                        }
-                        break;
-                    case MPL_Turn.SecondHint:
-                        if (!CheckUserResult(mpl_player_number_text.Text))
-                            MessageBox.Show(mpl_player2_name.Text + ": wrong hint");
-                        else
-                        {
-                            string result = CheckNumber(mpl_player2_number, (mpl_player1_list.Items[mpl_player1_list.Items.Count - 1] as ListBoxItem).Content.ToString());
-                            mpl_player1_list.Items.Add(MakeListView(result, mpl_player1_list.Items.Count));
-                            if (!result.Equals(mpl_player_number_text.Text))
-                                MessageBox.Show(mpl_player2_name.Text + ": wrong hint, correct hint has been added.");
-                            mpl_Turn = MPL_Turn.SecondNumber;
+                            else
+                                mpl_Turn = MPL_Turn.FirstNumber;
                         }
                         break;
                 }
