@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
+  <Identity Name="3fef0619-aa41-4993-bcb6-88ddda400666" Publisher="CN=Mohammad Diab" Version="1.0.0.0" />
+  <mp:PhoneIdentity PhoneProductId="3fef0619-aa41-4993-bcb6-88ddda400666" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Properties>
+    <DisplayName>Four Plus</DisplayName>
+    <PublisherDisplayName>Mohammad Diab</PublisherDisplayName>
+    <Logo>Assets\PackageLogo.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.16299.0" MaxVersionTested="10.0.22621.0" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Four_Plus.App">
+      <uap:VisualElements DisplayName="Four Plus" Description="Guess the computer's four-digit number before it guesses yours" BackgroundColor="#464646" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png">
+        <uap:DefaultTile ShortName="Four Plus">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo" />
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="Assets\Splash.png" BackgroundColor="#464646" />
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>

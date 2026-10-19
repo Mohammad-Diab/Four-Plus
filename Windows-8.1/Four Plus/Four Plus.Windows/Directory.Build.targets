@@ -1,0 +1,16 @@
+<Project>
+  <PropertyGroup>
+    <PackageCertificateKeyFile></PackageCertificateKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppxManifest Remove="@(AppxManifest)" />
+    <AppxManifest Include="$(MSBuildThisFileDirectory)_uwp\Package.appxmanifest" />
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.8" />
+    <Content Include="$(MSBuildThisFileDirectory)_uwp\Default.rd.xml">
+      <Link>Properties\Default.rd.xml</Link>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)_uwp\Assets\*.png">
+      <Link>Assets\%(Filename)%(Extension)</Link>
+    </Content>
+  </ItemGroup>
+</Project>

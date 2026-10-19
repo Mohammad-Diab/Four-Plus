@@ -1,0 +1,1 @@
+<Grid xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Width="24" Height="24" Background="#464646"><TextBlock Text="4+" FontFamily="Segoe UI" FontWeight="SemiBold" FontSize="14.4" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/></Grid>
