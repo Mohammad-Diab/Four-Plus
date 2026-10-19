@@ -34,7 +34,7 @@ The exe is not signed, so Windows SmartScreen may warn the first time you run it
 
 ### UWP edition
 
-1. Download the `.7z` file of the UWP edition (x64) from [Releases](https://github.com/Mohammad-Diab/Four-Plus/releases) and extract it.
+1. Download `Four-Plus-v0.2.0-win-x64.7z` from [Releases](https://github.com/Mohammad-Diab/Four-Plus/releases) and extract it.
 2. Double-click `Install.cmd` in the extracted folder and accept the administrator prompt. The script adds the package's certificate to **Trusted People** on the PC, installs the framework packages the app needs that are missing, then installs the signed app package. Developer Mode is not needed.
 3. Start Four Plus from the Start menu.
 
@@ -66,7 +66,13 @@ MSBuild "Windows-8.1\Four Plus\Four Plus.Windows\Four Plus.Windows.csproj" /t:Re
 MSBuild "Windows-8.1\Four Plus\Four Plus.Windows\Four Plus.Windows.csproj" %P% /p:AppxBundle=Never /p:AppxPackageSigningEnabled=false /p:GenerateAppxPackageOnBuild=true /p:UapAppxPackageBuildMode=SideloadOnly /p:AppxPackageDir=<output>\
 ```
 
-The package is written to `<output>`; Release builds compile with .NET Native and take a few minutes. .NET Native (`ilc`) fails on long paths, so build from a short path: for example `subst F: <clone folder>`, then run the commands from `F:\`. The logos are rendered from the XAML files in `_uwp\icon` with `_uwp\icon\render.ps1`.
+Run the commands from a Developer Command Prompt for Visual Studio, so `MSBuild` is on the path. The package is written to `<output>\Four Plus.Windows_1.0.0.0_x64_Test\Four Plus.Windows_1.0.0.0_x64.appx`, next to its `Dependencies` folder; Release builds compile with .NET Native and take a few minutes. .NET Native (`ilc`) fails on long paths, so build from a short path: for example `subst R: <clone folder>` (any free drive letter), then run the commands from `R:\`. The package is built unsigned; sign it with your own certificate before installing it:
+
+```
+signtool sign /fd SHA256 /f <certificate.pfx> /p <password> "<output>\Four Plus.Windows_1.0.0.0_x64_Test\Four Plus.Windows_1.0.0.0_x64.appx"
+```
+
+The certificate's subject must be `CN=Mohammad Diab`, the publisher in the manifest. The logos are rendered from the XAML files in `_uwp\icon` with `_uwp\icon\render.ps1`.
 
 ## Other versions
 
