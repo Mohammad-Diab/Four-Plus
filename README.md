@@ -77,7 +77,7 @@ The certificate's subject must be `CN=Mohammad Diab`, the publisher in the manif
 ## Other versions
 
 - `Windows-8.1` holds the universal app for Windows 8.1 and Windows Phone 8.1 (single player, Arabic interface). Its Windows app builds as the UWP edition (see Building); building the original Windows 8.1 and Windows Phone 8.1 apps needs Visual Studio 2015 with the Windows 8.1 and Windows Phone 8.1 SDKs.
-- Tag [`v0.1.0`](https://github.com/Mohammad-Diab/Four-Plus/tree/v0.1.0) is the first version, a console game named Number Game.
+- Release [`v0.1.0`](https://github.com/Mohammad-Diab/Four-Plus/releases/tag/v0.1.0) is the first version, a console game named Number Game.
 - [Four-Plus in Mini-Web-Projects](https://github.com/Mohammad-Diab/Mini-Web-Projects/tree/main/Four-Plus) is a JavaScript version for the browser.
 
 ## Author
